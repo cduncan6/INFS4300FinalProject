@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Team2FP4300.Models.Employees>
+
+<div class="col-xs-3 mySidebar1">
+    <!-- first fire the Partial View providing method named DeptNamePartial of Department Controller-->
+    @Html.Action("DepartmentNamePartial", "Departments")
+</div>
+
+<div class="col-xs-9">
+    <h3>Employees of @ViewBag.theDeptName</h3>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@Html.ActionLink("Back to Home", "Index")
+
+

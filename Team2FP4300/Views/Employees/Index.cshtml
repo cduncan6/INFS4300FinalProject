@@ -1,0 +1,102 @@
+﻿@model PagedList.IPagedList<Team2FP4300.Models.Employees>
+@using PagedList.Mvc;
+@using PagedList;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div>
+    <!-- Embed a tiny form here.
+           In this version of BeginForm, it means “on submit, ask for the Index2 method of Employees controller”
+           and use Get method to submit data. -->
+    @using (Html.BeginForm("SearchEmp", "Employees", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        </p>
+    } <!—End of Begin Form -->
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Employee ID", "Index", new {pSortOrder = ViewBag.empidSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DepartmentCode);
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FirstName)
+        </th>
+        <th>
+            <!--Html.DisplayNameFor(model => model.LastName) -->
+            @Html.ActionLink("Last Name", "Index", new { pSortOrder = ViewBag.NameSortParm })
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().Title)
+        </th>
+        <th>
+            @Html.ActionLink("Hire Date", "Index", new { pSortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ImgFileName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HireDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImgFileName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
+        </td>
+    </tr>
+}
+<div class="row">
+    <div class="col-md-12">
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                                new { page, pageSize = Model.PageSize }))
+            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage
+            of @Model.TotalItemCount Employees
+        </div>
+    </div>
+
+</table>

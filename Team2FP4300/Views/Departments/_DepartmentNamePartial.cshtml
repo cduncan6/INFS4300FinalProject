@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Team2FP4300.Models.Department>
+
+<h3>Please select a Department</h3>
+@foreach (var item in Model)
+{
+    @Html.ActionLink(item.DepartmentName, "ShowEmpsByDept", "Employees",
+                                         new { id = item.DepartmentCode }, null)
+    <br />
+}
